@@ -4,13 +4,16 @@
 import sys
 import hashlib as hash
 import random as rand
-
+import os
+from os.path import abspath
 #Declare Array for using
 ck = True
 
 y = []
 r = []
 strip = [] #This is the result of stripping the string
+if not os.path.exists("output"):
+    os.makedirs("output")
 x = list(input("Enter multiple value: ").split(" "))
 while ck:
     try:
@@ -19,6 +22,8 @@ while ck:
     except:
         print("The input is not integer")
 naming = str(input("What file name would you like: ")) #This use for setting file name
+
+
 
 #Declare Function
 
@@ -48,23 +53,27 @@ def rando(): #Random hash value for more security on cloud
 
 def creatTxt(name):
     name = name +".txt"
-    f = open(name,"w")
+    f = open("output/"+ name,"w") 
     for i in range (0, len(strip),1):
         lx = x[i]
         ls = strip[i]
-        tw = "%s : %s \n"%( lx, ls )
+        ly = y[i]
+        tw = "%s : %s : %s \n"%( lx, ly, ls )
         try:
             f.write(tw)
         except:
             print("Something went wrong when writing to the file")
             
-    print("Writting Successful")    
+    print(f"Writting Successful  saved at {abspath(f.name)}")    
     f.close()
+
+
 #Main Loop
 hashData()
 trimming(z)
 rando()
-showData()
+# showData()
 creatTxt(naming)
+input("Press Enter To Close the Application")
 
 
